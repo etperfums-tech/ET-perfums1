@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ET PERFUMES - Haute Parfumerie</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Netlify Identity Widget for Admin Login -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        offwhite: {
+                            DEFAULT: '#FAF8F5',
+                            50: '#FFFFFF',
+                            100: '#FAF8F5',
+                            200: '#F2ECE4',
+                            300: '#E5DAD0',
+                        },
+                        burgundy: {
+                            DEFAULT: '#58111A',
+                            light: '#7A1C28',
+                            dark: '#3B090F',
+                            deep: '#290509',
+                        },
+                        gold: {
+                            500: '#D4AF37',
+                            600: '#B89028',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF8F5;
+            color: #58111A;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Mode Classes */
+        body.dark-mode {
+            background-color: #1A0407 !important;
+            color: #FAF8F5 !important;
+        }
+
+        body.dark-mode header,
+        body.dark-mode section,
+        body.dark-mode footer,
+        body.dark-mode .clean-card {
+            background-color: #290509 !important;
+            border-color: rgba(212, 175, 55, 0.2) !important;
+            color: #FAF8F5 !important;
+        }
+
+        body.dark-mode .text-burgundy,
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4 {
+            color: #FAF8F5 !important;
+        }
+
+        body.dark-mode .tab-btn {
+            color: rgba(250, 248, 245, 0.7) !important;
+        }
+
+        body.dark-mode .tab-btn.active-tab {
+            color: #D4AF37 !important;
+        }
+
+        body.dark-mode .tab-btn.active-tab::after {
+            background-color: #D4AF37 !important;
+        }
+
+        body.dark-mode .bg-offwhite-200 {
+            background-color: #3B090F !important;
+        }
+
+        /* Subtle Luxury Pattern Overlay */
+        .bg-subtle-ornament {
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 0 L46 20 L66 20 L50 32 L56 52 L40 40 L24 52 L30 32 L14 20 L34 20 Z' fill='none' stroke='%2358111A' stroke-width='0.4' stroke-opacity='0.04'/%3E%3Ccircle cx='40' cy='40' r='25' fill='none' stroke='%2358111A' stroke-width='0.3' stroke-opacity='0.03'/%3E%3C/svg%3E");
+            background-size: 80px 80px;
+        }
+
+        .font-serif-title {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .burgundy-btn {
+            background-color: #58111A;
+            color: #FAF8F5;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .burgundy-btn:hover {
+            background-color: #7A1C28;
+            box-shadow: 0 10px 25px -5px rgba(88, 17, 26, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .gold-outline-btn {
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            transition: all 0.3s ease;
+        }
+
+        .gold-outline-btn:hover {
+            background-color: #D4AF37;
+            color: #290509;
+        }
+
+        .tab-btn {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active-tab {
+            color: #58111A;
+            font-weight: 700;
+        }
+
+        .tab-btn.active-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 2px;
+            background-color: #58111A;
+        }
+
+        .clean-card {
+            background-color: #FFFFFF;
+            border: 1px solid rgba(88, 17, 26, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .clean-card:hover {
+            border-color: rgba(88, 17, 26, 0.25);
+            box-shadow: 0 20px 40px -15px rgba(88, 17, 26, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .product-card {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.4s ease;
+        }
+
+        .product-card.hidden-card {
+            display: none !important;
+        }
+
+        .gold-brand-text {
+            background: linear-gradient(135deg, #D4AF37 0%, #B89028 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Banner Gradient */
+        .hero-banner-bg {
+            background: linear-gradient(135deg, #290509 0%, #3B090F 40%, #58111A 100%);
+        }
+    </style>
+</head>
+<body class="selection:bg-burgundy selection:text-offwhite bg-subtle-ornament">
+
+    <!-- TOP ANNOUNCEMENT & UTILITIES BAR -->
+    <div class="bg-burgundy text-offwhite text-xs py-2 px-4 border-b border-burgundy-light/20 relative z-50">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+            
+            <!-- Dynamic Promo Text -->
+            <span id="txt-promo" class="font-medium tracking-widest uppercase text-[11px] text-center">
+                Complimentary Luxury Packaging On All Fragrance Orders
+            </span>
+
+            <!-- Utilities: Language & Dark Mode -->
+            <div class="flex items-center space-x-4 text-xs">
+                
+                <!-- Language Switcher -->
+                <div class="flex items-center border border-gold-500/40 rounded-full px-2 py-0.5 bg-black/20">
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-1.5 py-0.5 rounded text-[10px] font-bold text-gold-500">EN</button>
+                    <span class="text-gold-500/40 text-[10px]">|</span>
+                    <button onclick="setLanguage('ar')" id="lang-ar" class="px-1.5 py-0.5 rounded text-[10px] font-bold text-offwhite/60 hover:text-gold-500">عربي</button>
+                </div>
+
+                <!-- Dark Mode Toggle Button -->
+                <button onclick="toggleDarkMode()" id="dark-toggle-btn" class="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-gold-500/40 bg-black/20 hover:border-gold-500 transition-all text-[11px]">
+                    <i class="fas fa-moon text-gold-500" id="dark-icon"></i>
+                    <span id="dark-txt">Dark</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN HEADER -->
+    <header class="sticky top-0 z-50 bg-offwhite/90 backdrop-blur-md border-b border-burgundy/10 px-6 lg:px-12 py-4 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            
+            <!-- LEFT: LOGO -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <div class="w-11 h-11 rounded-full bg-black border border-gold-500/40 flex flex-col items-center justify-center shadow-sm">
+                    <span class="font-serif-title font-bold text-lg leading-none gold-brand-text">ET</span>
+                    <span class="text-[7px] font-sans tracking-[0.2em] text-gold-500 uppercase mt-0.5">PARFUM</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif-title text-xl font-bold tracking-wider text-black leading-tight">ET PERFUMES</span>
+                    <span class="text-[9px] font-sans tracking-[0.25em] text-burgundy/70 uppercase">LUXURY COLLECTION</span>
+                </div>
+            </div>
+
+            <!-- RIGHT: Social Links & Contact -->
+            <div class="flex items-center space-x-5">
+                <a href="https://wa.me/201021942249" target="_blank" title="WhatsApp" class="text-burgundy/80 hover:text-burgundy transition-colors text-lg">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/et.fragrances?psln=MWs2dXplanJ2MW9oNA==" target="_blank" title="Instagram" class="text-burgundy/80 hover:text-burgundy transition-colors text-lg">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/share/18s4Yb5362/" target="_blank" title="Facebook" class="text-burgundy/80 hover:text-burgundy transition-colors text-lg">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <button onclick="openContactModal()" title="Email" class="text-burgundy/80 hover:text-burgundy transition-colors text-lg">
+                    <i class="far fa-envelope"></i>
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- LUXURY TEXT-ONLY HERO BANNER -->
+    <section class="hero-banner-bg text-offwhite py-16 sm:py-20 px-6 text-center border-b border-gold-500/20 relative z-10">
+        <div class="max-w-4xl mx-auto space-y-5">
+            <span class="text-xs uppercase tracking-[0.4em] text-gold-500 font-medium block">Haute Parfumerie</span>
+            
+            <h1 class="font-serif-title text-4xl sm:text-6xl font-normal leading-tight tracking-wide">
+                CRAFTED FOR <span class="gold-brand-text italic">UNFORGETTABLE</span> PRESENCE
+            </h1>
+            
+            <p class="text-offwhite/80 text-sm sm:text-base font-light max-w-xl mx-auto leading-relaxed">
+                An extraordinary collection of rare, timeless fragrances blended to reflect pure luxury and distinction.
+            </p>
+
+            <div class="pt-4 flex items-center justify-center gap-3">
+                <div class="w-10 h-[1px] bg-gold-500/40"></div>
+                <i class="fas fa-sparkles text-xs text-gold-500/70"></i>
+                <div class="w-10 h-[1px] bg-gold-500/40"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE / CATEGORY NAVIGATION BAR -->
+    <section id="catalog-section" class="sticky top-[73px] z-40 bg-offwhite/95 backdrop-blur-md border-y border-burgundy/10 py-4 px-4 shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-center space-x-10 sm:space-x-16">
+            <button onclick="switchTab('him', this)" class="tab-btn active-tab text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold text-burgundy/70 hover:text-burgundy">
+                For Him
+            </button>
+            <button onclick="switchTab('her', this)" class="tab-btn text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold text-burgundy/70 hover:text-burgundy">
+                For Her
+            </button>
+            <button onclick="switchTab('unisex', this)" class="tab-btn text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold text-burgundy/70 hover:text-burgundy">
+                Unisex
+            </button>
+        </div>
+    </section>
+
+    <!-- PRODUCTS MAIN CATALOG GRID -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        
+        <div class="flex items-center justify-between mb-10 pb-3 border-b border-burgundy/10">
+            <h2 class="font-serif-title text-2xl sm:text-3xl text-burgundy font-normal tracking-wide" id="section-title">For Him Collection</h2>
+            <span class="text-xs text-burgundy/60 font-mono uppercase tracking-widest" id="count-indicator">Showing Collection</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="products-container">
+            
+            <!-- STATIC PRODUCTS LIST -->
+            <!-- 1. Ultra Male (Him) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="him">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                        <a href='https://postimg.cc/5HsBCvph' target='_blank'><img src='https://i.postimg.cc/5HsBCvph/ultra-male.jpg' border='0' alt='ultra-male'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">For Him</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Ultra Male</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>170 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>250 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            An intense blend of vanilla, juicy pear, and cinnamon. The ultimate scent for nightouts and special evening occasions.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Ultra Male', 'EAU DE PARFUM', 'An intense explosion of vanilla, pear, and cinnamon. The uncontested fragrance for grand evening occasions.', '30ml: 170 EGP', '50ml: 250 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 2. Asad (Him) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="him">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                       <a href='https://postimg.cc/JDTpMv9Z' target='_blank'><img src='https://i.postimg.cc/JDTpMv9Z/asad.jpg' border='0' alt='asad'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">For Him</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Asad</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>170 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>250 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            A symbol of absolute power and charisma. Combines warm black pepper, rich tobacco, smooth vanilla, and oriental amber.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Asad', 'EAU DE PARFUM', 'A bold statement of power and allure. Blending rich tobacco, black pepper, and warm amber notes.', '30ml: 170 EGP', '50ml: 250 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+          <!-- 3. Arrogate De Blue (Him) -->
+<div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="him">
+    <div>
+        <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+            <!-- تم تعديل الرابط هنا ليكون الرابط المباشر الصحيح للصورة -->
+            <a href='https://postimg.cc/VdktP5Rk' target='_blank'><img src='https://i.postimg.cc/VdktP5Rk/arrogate.jpg' border='0' alt='arrogate'></a>
+            <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">For Him</span>
+        </div>
+        <div class="space-y-2">
+            <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Arrogate De Blue</h3>
+            
+            <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>170 EGP</strong></span>
+                <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>250 EGP</strong></span>
+            </div>
+
+            <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                The essence of pure freshness and magnetic charm. Delivers renewed energy and confidence with citrusy accords.
+            </p>
+        </div>
+    </div>
+    <button onclick="openProductModal('Arrogate De Blue', 'EAU DE PARFUM', 'Pure freshness and vibrant presence. A captivating blend of aquatic notes and sparkling citrus.', '30ml: 170 EGP', '50ml: 250 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+        Explore Fragrance
+    </button>
+</div>
+
+            <!-- 4. Madawi (Him) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="him">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                       <a href='https://postimg.cc/1VnrPtGH' target='_blank'><img src='https://i.postimg.cc/1VnrPtGH/mdawy.jpg' border='0' alt='mdawy'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">For Him</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Madawi</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>170 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>250 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            An enchanting opening of peach blossoms and apple, moving to pineapple blossom notes resting on a rich musk base.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Madawi', 'EAU DE PARFUM', 'An enchanting composition opening with peach blossom and apple, complemented by musk and rich sandalwood.', '30ml: 170 EGP', '50ml: 250 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 5. Lacoste White (Him) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="him">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                       <a href='https://postimg.cc/06nf0h5Z' target='_blank'><img src='https://i.postimg.cc/06nf0h5Z/lacost-white.jpg' border='0' alt='lacost-white'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">For Him</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Lacoste White</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>170 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>250 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            The definition of crisp, clean freshness. Crisp grapefruit notes interwoven with cardamom, gardenia, and smooth leather.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Lacoste White', 'EAU DE PARFUM', 'Crisp, clean, and energizing fragrance combining grapefruit, cardamom, gardenia, and elegant leather.', '30ml: 170 EGP', '50ml: 250 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 6. Layton (Him) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="him">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                       <a href='https://postimg.cc/zy5K2pQ1' target='_blank'><img src='https://i.postimg.cc/zy5K2pQ1/layton.jpg' border='0' alt='layton'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy text-offwhite text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">Privé Edition</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Layton</h3>
+                        
+                        <div class="flex flex-col gap-1 pt-1 text-xs font-mono text-burgundy/90">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-offwhite-200 px-2.5 py-1 rounded font-bold">Privé Oil: 30ml: 200 EGP</span>
+                                <span class="bg-offwhite-200 px-2.5 py-1 rounded font-bold">50ml: 300 EGP</span>
+                            </div>
+                            <span class="text-[10px] text-burgundy/60">Standard: (30ml: 170 EGP / 50ml: 250 EGP)</span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            An unforgettable olfactory signature. Blends fresh bergamot and apple with warm cardamom, jasmine, and cozy vanilla.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Layton', 'EAU DE PARFUM', 'A legendary signature scent blending bergamot, apple, cardamom, and warm vanilla for a truly regal impression.', 'Privé (30ml: 200 EGP / 50ml: 300 EGP)', 'Standard (30ml: 170 EGP / 50ml: 250 EGP)')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 7. Tobacco Vanilla (Him) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="him">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                      <a href='https://postimg.cc/hJtxcvg9' target='_blank'><img src='https://i.postimg.cc/hJtxcvg9/tobacco-vanlya.jpg' border='0' alt='tobacco-vanlya'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">For Him</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Tobacco Vanilla</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>170 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>250 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            An opulent accord combining warm tobacco leaves with sweet vanilla notes and spicy undertones for a cozy trail.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Tobacco Vanilla', 'EAU DE PARFUM', 'An opulent blend of warm tobacco leaf, sweet vanilla, and aromatic spices leaving an unforgettable aura.', '30ml: 170 EGP', '50ml: 250 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 8. Yara Candy (Her) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="her">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                       <a href='https://postimg.cc/5YHCQrXy' target='_blank'><img src='https://i.postimg.cc/5YHCQrXy/yara-candy.jpg' border='0' alt='yara-candy'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">For Her</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Yara Candy</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>170 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>250 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            The essence of playful femininity. A sweet journey of sparkling fruits, delicious candy notes, and a soft vanilla musk.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Yara Candy', 'EAU DE PARFUM', 'A sweet and enchanting scent blending candied fruits, delicate blossoms, and warm vanilla musk.', '30ml: 170 EGP', '50ml: 250 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 9. Si Passione (Her) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="her">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                     <a href='https://postimg.cc/D4L4BbQH' target='_blank'><img src='https://i.postimg.cc/D4L4BbQH/si.jpg' border='0' alt='si'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">For Her</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Sì Passione</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>180 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>270 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            A bold declaration of feminine passion. Combines sparkling pear, pink pepper, rose, jasmine, and rich cedarwood.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Sì Passione', 'EAU DE PARFUM', 'A passionate and audacious composition of sparkling pear, rose, jasmine, and comforting cedarwood.', '30ml: 180 EGP', '50ml: 270 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 10. Mayar Cherry (Her) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="her">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                     <a href='https://postimg.cc/5QLQnFqX' target='_blank'><img src='https://i.postimg.cc/5QLQnFqX/mayar-cherry.jpg' border='0' alt='mayar-cherry'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">For Her</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Mayar Cherry</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>170 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>250 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            Radiating charm and freshness. Blends exotic lychee, juicy cherry notes, tender vanilla, and white musk.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Mayar Cherry', 'EAU DE PARFUM', 'A vibrant floral-fruity scent bringing together lychee, cherry, delicate vanilla, and soft white musk.', '30ml: 170 EGP', '50ml: 250 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 11. Oajan (Unisex) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="unisex">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                       <a href='https://postimg.cc/Vd9btnkq' target='_blank'><img src='https://i.postimg.cc/Vd9btnkq/ojan.jpg' border='0' alt='ojan'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">Unisex</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Oajan</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>180 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>280 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            A warm, seductive aroma wrapped in rich honey, spicy cinnamon, and a luxurious base of tobacco and creamy vanilla.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Oajan', 'EAU DE PARFUM', 'Rich cinnamon and sweet honey layered over an opulent base of tobacco and vanilla.', '30ml: 180 EGP', '50ml: 280 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 12. Baccarat Rouge (Unisex) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="unisex">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                       <a href='https://postimg.cc/rdHdT9fV' target='_blank'><img src='https://i.postimg.cc/rdHdT9fV/rouge.jpg' border='0' alt='rouge'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">Unisex</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Baccarat Rouge</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>180 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>280 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            The pinnacle of luxury and radiance. A mesmerizing harmony of Egyptian jasmine, radiant ambergris, and cedarwood.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Baccarat Rouge', 'EAU DE PARFUM', 'Pure luxury and unmistakable elegance. Combining breezy jasmine, saffron, ambergris, and cedarwood.', '30ml: 180 EGP', '50ml: 280 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 13. Café Mystique (Unisex) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="unisex">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                        <a href='https://postimg.cc/w7RwYW2C' target='_blank'><img src='https://i.postimg.cc/w7RwYW2C/cafe-M.jpg' border='0' alt='cafe-M'></a> border='0' alt='cafe-M'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">Unisex</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Café Mystique</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>180 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>280 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            A mysterious unisex creation blending roasted coffee, rich spices, amber, vanilla, and incense notes for deep warmth.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Café Mystique', 'MAKSIM PERFUME', 'A rich unisex creation pairing dark roasted coffee with warm spices, amber, vanilla, and mystical incense.', '30ml: 180 EGP', '50ml: 280 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+            <!-- 14. Marshmallow (Unisex) -->
+            <div class="product-card clean-card rounded-xl p-6 flex flex-col justify-between" data-category="unisex">
+                <div>
+                    <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                      <a href='https://postimg.cc/G4H85NjJ' target='_blank'><img src='https://i.postimg.cc/G4H85NjJ/marshemelo.jpg' border='0' alt='marshemelo'></a>
+                        <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">Unisex</span>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif-title font-semibold text-2xl text-burgundy">Marshmallow</h3>
+                        
+                        <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">30ml: <strong>170 EGP</strong></span>
+                            <span class="bg-offwhite-200 px-2.5 py-1 rounded">50ml: <strong>250 EGP</strong></span>
+                        </div>
+
+                        <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                            A comforting sweet hug. Merges fluffy marshmallow notes, spun sugar, smooth vanilla, and a soft touch of white musk.
+                        </p>
+                    </div>
+                </div>
+                <button onclick="openProductModal('Marshmallow', 'UNISEX EDITION', 'A cozy, delicious creation merging fluffy marshmallow, spun sugar, smooth vanilla, and soft musk.', '30ml: 170 EGP', '50ml: 250 EGP')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                    Explore Fragrance
+                </button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-burgundy/10 bg-offwhite-200 py-12 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <!-- Brand Info & Developer Rights -->
+            <div class="flex flex-col items-center md:items-start gap-1 text-center md:text-left">
+                <div class="flex items-center space-x-3">
+                    <span class="font-serif-title text-2xl font-bold text-burgundy">ET PERFUMES</span>
+                    <span class="text-xs text-burgundy/50 border-l border-burgundy/20 pl-3">© 2026 All Rights Reserved</span>
+                </div>
+                
+                <!-- Developer Credit -->
+                <p class="text-xs text-burgundy/80 font-medium mt-2">
+                    Developed by: <span class="font-bold text-burgundy">Youssef Sabry</span> | 
+                    <a href="https://wa.me/201551501868" target="_blank" class="hover:text-gold-600 underline transition-colors">
+                        <i class="fab fa-whatsapp text-emerald-600"></i> 01551501868
+                    </a>
+                </p>
+            </div>
+
+            <!-- Social Links -->
+            <div class="flex items-center space-x-5 text-burgundy text-sm">
+                <a href="https://wa.me/201021942249" target="_blank" title="WhatsApp" class="hover:opacity-75 transition-opacity"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/et.fragrances?psln=MWs2dXplanJ2MW9oNA==" target="_blank" title="Instagram" class="hover:opacity-75 transition-opacity"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/18s4Yb5362/" target="_blank" title="Facebook" class="hover:opacity-75 transition-opacity"><i class="fab fa-facebook-f"></i></a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="productModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-burgundy-dark/40 backdrop-blur-sm hidden transition-all duration-300 opacity-0">
+        <div class="bg-offwhite border border-burgundy/20 rounded-2xl max-w-lg w-full p-8 relative shadow-2xl transform scale-95 transition-all duration-300" id="modalBox">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-burgundy/60 hover:text-burgundy w-8 h-8 rounded-full bg-offwhite-200 flex items-center justify-center transition-all">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="text-center mb-6">
+                <span class="text-[10px] text-burgundy/60 font-mono uppercase tracking-[0.3em] block mb-1">Private Collection</span>
+                <h3 id="modalTitle" class="font-serif-title text-3xl font-bold text-burgundy">---</h3>
+                <p id="modalSub" class="text-xs text-burgundy/70 font-mono tracking-wider mt-1">---</p>
+                
+                <!-- MODAL PRICES -->
+                <div class="flex justify-center items-center gap-3 mt-3 font-mono text-xs text-burgundy">
+                    <span id="modalPrice30" class="bg-offwhite-200 border border-burgundy/10 px-3 py-1 rounded">30ml: ---</span>
+                    <span id="modalPrice50" class="bg-offwhite-200 border border-burgundy/10 px-3 py-1 rounded">50ml: ---</span>
+                </div>
+            </div>
+
+            <p id="modalDesc" class="text-sm text-burgundy/80 font-light text-center mb-6 leading-relaxed">
+                ---
+            </p>
+
+            <a id="modalWhatsappBtn" href="https://wa.me/201021942249" target="_blank" class="burgundy-btn w-full py-3.5 rounded-xl font-semibold text-xs uppercase tracking-wider text-center block">
+                Order via WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- CONTACT MODAL -->
+    <div id="contactModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-burgundy-dark/40 backdrop-blur-sm hidden transition-all duration-300">
+        <div class="bg-offwhite border border-burgundy/20 rounded-2xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="closeContactModal()" class="absolute top-4 right-4 text-burgundy/60 hover:text-burgundy w-8 h-8 rounded-full bg-offwhite-200 flex items-center justify-center">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3 class="font-serif-title text-2xl font-bold text-burgundy mb-2 text-center">Contact ET PERFUMES</h3>
+            <p class="text-xs text-burgundy/70 font-sans text-center mb-6">Reach out directly for orders and custom fragrance inquiries:</p>
+            <div class="space-y-3">
+                <a href="https://wa.me/201021942249" target="_blank" class="flex items-center gap-3 bg-offwhite-200 border border-burgundy/10 p-3.5 rounded-xl text-burgundy hover:border-burgundy transition-all">
+                    <i class="fab fa-whatsapp text-emerald-600 text-xl"></i>
+                    <span class="text-xs font-semibold">WhatsApp: 01021942249</span>
+                </a>
+                <a href="mailto:eslamtamer70912@gmail.com" class="flex items-center gap-3 bg-offwhite-200 border border-burgundy/10 p-3.5 rounded-xl text-burgundy hover:border-burgundy transition-all">
+                    <i class="far fa-envelope text-burgundy text-xl"></i>
+                    <span class="text-xs font-semibold">Email: eslamtamer70912@gmail.com</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT: TABS, DYNAMIC CMS FETCH, LANGUAGE & DARK MODE -->
+    <script>
+        // TRANSLATION DICTIONARY
+        const translations = {
+            en: {
+                dir: 'ltr',
+                promo: "Complimentary Luxury Packaging On All Fragrance Orders",
+                tagline: "LUXURY COLLECTION",
+                heroSub: "Haute Parfumerie",
+                heroTitle: "CRAFTED FOR <span class=\"gold-brand-text italic\">UNFORGETTABLE</span> PRESENCE",
+                heroDesc: "An extraordinary collection of rare, timeless fragrances blended to reflect pure luxury and distinction.",
+                tabHim: "For Him",
+                tabHer: "For Her",
+                tabUnisex: "Unisex",
+                titleHim: "For Him Collection",
+                titleHer: "For Her Collection",
+                titleUnisex: "Unisex Collection",
+                btnExplore: "Explore Fragrance",
+                modalBtn: "Order via WhatsApp",
+                darkLabel: "Dark"
+            },
+            ar: {
+                dir: 'rtl',
+                promo: "تغليف فاخر مجاني مع جميع طلبات العطور",
+                tagline: "تشكيلة فاخرة",
+                heroSub: "عطور راقية",
+                heroTitle: "صُنعت لتمنحك حضوراً <span class=\"gold-brand-text italic\">لا يُنسى</span>",
+                heroDesc: "تشكيلة استثنائية من أندر الزيوت العطرية العالمية المصممة لتعكس الفخامة والأناقة مطلقاً.",
+                tabHim: "رجالي",
+                tabHer: "حريمي",
+                tabUnisex: "يونيسكس",
+                titleHim: "مجموعة العطور الرجالية",
+                titleHer: "مجموعة العطور النسائية",
+                titleUnisex: "مجموعة العطور المشتركة",
+                btnExplore: "استكشف العطر",
+                modalBtn: "الطلب عبر واتساب",
+                darkLabel: "داكن"
+            }
+        };
+
+        let currentLang = 'en';
+
+        // FETCH DYNAMIC PRODUCTS FROM PRODUCTS.JSON (CMS INTEGRATION)
+        async function loadDynamicProducts() {
+            try {
+                const response = await fetch('products.json');
+                if (!response.ok) return;
+                
+                const data = await response.json();
+                
+                if (data && data.items && data.items.length > 0) {
+                    const container = document.getElementById('products-container');
+                    
+                    data.items.forEach(item => {
+                        const categoryLabel = item.category === 'him' ? 'For Him' : (item.category === 'her' ? 'For Her' : 'Unisex');
+                        const price30Text = item.price30 ? `30ml: <strong>${item.price30}</strong>` : '';
+                        const price50Text = item.price50 ? `50ml: <strong>${item.price50}</strong>` : '';
+                        
+                        const cardDiv = document.createElement('div');
+                        cardDiv.className = `product-card clean-card rounded-xl p-6 flex flex-col justify-between`;
+                        cardDiv.setAttribute('data-category', item.category || 'him');
+                        
+                        cardDiv.innerHTML = `
+                            <div>
+                                <div class="relative w-full h-80 rounded-lg bg-white flex items-center justify-center overflow-hidden mb-6 group border border-burgundy/5">
+                                    <img src="${item.image || 'pic/layton.jpg'}" alt="${item.title}" class="max-h-72 object-contain transition-transform duration-500 group-hover:scale-105">
+                                    <span class="absolute top-3 right-3 bg-burgundy/10 text-burgundy text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded">${categoryLabel}</span>
+                                </div>
+                                <div class="space-y-2">
+                                    <h3 class="font-serif-title font-semibold text-2xl text-burgundy">${item.title}</h3>
+                                    
+                                    <div class="flex items-center gap-2 pt-1 text-xs font-mono text-burgundy/90">
+                                        ${price30Text ? `<span class="bg-offwhite-200 px-2.5 py-1 rounded">${price30Text}</span>` : ''}
+                                        ${price50Text ? `<span class="bg-offwhite-200 px-2.5 py-1 rounded">${price50Text}</span>` : ''}
+                                    </div>
+
+                                    <p class="text-xs text-burgundy/75 pt-2 leading-relaxed font-light">
+                                        ${item.description || ''}
+                                    </p>
+                                </div>
+                            </div>
+                            <button onclick="openProductModal('${item.title}', '${item.sub || 'EAU DE PARFUM'}', '${item.description || ''}', '30ml: ${item.price30 || '---'}', '50ml: ${item.price50 || '---'}')" class="burgundy-btn w-full mt-6 py-3 rounded-lg text-xs font-semibold uppercase tracking-widest">
+                                Explore Fragrance
+                            </button>
+                        `;
+                        container.appendChild(cardDiv);
+                    });
+                }
+            } catch (error) {
+                console.log('No extra JSON products loaded yet or fetch error:', error);
+            } finally {
+                // Refresh Tab Filter view after loading dynamic items
+                const activeTab = document.querySelector('.tab-btn.active-tab');
+                if (activeTab) {
+                    const category = activeTab.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    switchTab(category, activeTab);
+                }
+            }
+        }
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            document.documentElement.dir = t.dir;
+            document.documentElement.lang = lang;
+
+            document.getElementById('txt-promo').innerText = t.promo;
+            
+            const heroSub = document.querySelector('.hero-banner-bg span');
+            if (heroSub) heroSub.innerText = t.heroSub;
+
+            const heroTitle = document.querySelector('.hero-banner-bg h1');
+            if (heroTitle) heroTitle.innerHTML = t.heroTitle;
+
+            const heroDesc = document.querySelector('.hero-banner-bg p');
+            if (heroDesc) heroDesc.innerText = t.heroDesc;
+
+            const tabs = document.querySelectorAll('.tab-btn');
+            if(tabs[0]) tabs[0].innerText = t.tabHim;
+            if(tabs[1]) tabs[1].innerText = t.tabHer;
+            if(tabs[2]) tabs[2].innerText = t.tabUnisex;
+
+            document.querySelectorAll('.product-card button').forEach(btn => {
+                btn.innerText = t.btnExplore;
+            });
+
+            if(lang === 'ar') {
+                document.getElementById('lang-ar').className = "px-1.5 py-0.5 rounded text-[10px] font-bold text-gold-500";
+                document.getElementById('lang-en').className = "px-1.5 py-0.5 rounded text-[10px] font-bold text-offwhite/60 hover:text-gold-500";
+            } else {
+                document.getElementById('lang-en').className = "px-1.5 py-0.5 rounded text-[10px] font-bold text-gold-500";
+                document.getElementById('lang-ar').className = "px-1.5 py-0.5 rounded text-[10px] font-bold text-offwhite/60 hover:text-gold-500";
+            }
+
+            const activeTab = document.querySelector('.tab-btn.active-tab');
+            if (activeTab) {
+                const category = activeTab.getAttribute('onclick').match(/'([^']+)'/)[1];
+                const titleElement = document.getElementById('section-title');
+                if (category === 'him') titleElement.innerText = t.titleHim;
+                else if (category === 'her') titleElement.innerText = t.titleHer;
+                else if (category === 'unisex') titleElement.innerText = t.titleUnisex;
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            const icon = document.getElementById('dark-icon');
+            const txt = document.getElementById('dark-txt');
+
+            if (isDark) {
+                icon.className = "fas fa-sun text-gold-500";
+                txt.innerText = currentLang === 'ar' ? "مضيء" : "Light";
+            } else {
+                icon.className = "fas fa-moon text-gold-500";
+                txt.innerText = currentLang === 'ar' ? "داكن" : "Dark";
+            }
+        }
+
+        function switchTab(category, btnElement) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(tab => tab.classList.remove('active-tab'));
+
+            if (btnElement) btnElement.classList.add('active-tab');
+
+            const products = document.querySelectorAll('.product-card');
+            let visibleCount = 0;
+
+            products.forEach(product => {
+                const pCategory = product.getAttribute('data-category');
+                if (pCategory === category) {
+                    product.classList.remove('hidden-card');
+                    visibleCount++;
+                } else {
+                    product.classList.add('hidden-card');
+                }
+            });
+
+            const titleElement = document.getElementById('section-title');
+            const t = translations[currentLang];
+            if (category === 'him') titleElement.innerText = t.titleHim;
+            else if (category === 'her') titleElement.innerText = t.titleHer;
+            else if (category === 'unisex') titleElement.innerText = t.titleUnisex;
+
+            document.getElementById('count-indicator').innerText = `Showing ${visibleCount} Fragrances`;
+        }
+
+        function openProductModal(title, sub, desc, p30, p50) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalSub').innerText = sub;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalPrice30').innerText = p30 || '30ml: ---';
+            document.getElementById('modalPrice50').innerText = p50 || '50ml: ---';
+
+            const modal = document.getElementById('productModal');
+            const box = document.getElementById('modalBox');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                box.classList.remove('scale-95');
+                box.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            const box = document.getElementById('modalBox');
+
+            modal.classList.add('opacity-0');
+            box.classList.remove('scale-100');
+            box.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        function openContactModal() {
+            document.getElementById('contactModal').classList.remove('hidden');
+        }
+
+        function closeContactModal() {
+            document.getElementById('contactModal').classList.add('hidden');
+        }
+
+        // Initialize Netlify Identity & Load Dynamic JSON Products
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.on("init", user => {
+                    if (!user) {
+                        window.netlifyIdentity.on("login", () => {
+                            document.location.href = "/admin/";
+                        });
+                    }
+                });
+            }
+            loadDynamicProducts();
+        });
+    </script>
+</body>
+</html>
